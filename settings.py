@@ -1,0 +1,3 @@
+MONGODB_HOST = '127.0.0.1'
+MONGODB_NAME = 'mydatabase'
+ITEMS_PER_PAGE = 7

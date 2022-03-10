@@ -1,0 +1,232 @@
+{% extends 'index.html' %}
+{% block head %}{% endblock %}
+{% block post %}
+<li class="btn-group nav-item">
+    <a href="javascript:void(0);" class="nav-link">
+        <i class="nav-link-icon fa fa-edit"></i>
+        Add People
+    </a>
+</li>
+{% endblock %}
+<style>
+ .app-container {
+     position: fixed;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     left: 0;
+     overflow-y: auto;
+ }
+</style>
+{% block body %} 
+<section>
+    <div class="col-auto">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header"><i class="fa fa-table" style="font-size:20px"></i>&nbsp List People
+                    <div class="btn-actions-pane-right">
+                        <div role="group" class="btn-group-sm btn-group">
+                            
+                            <form action="/list_people/find_people_by_id" method="get">
+                                <div class="input-group rounded">
+                                    <input type="text" name="find_name_people" class="form-control rounded"
+                                        placeholder="Search people" aria-label="Search"
+                                        aria-describedby="search-addon" />
+                                    <button type="submit" class="btn-wide btn btn-dark"><i
+                                            class="pe-7s-search btn-icon-wrapper"></i><i></i></button>
+                                </div>
+                        </div>
+                        </form>
+                        <button class="btn-wide btn btn-warning" data-toggle="modal" data-target="#exampleModal1"><i class="pe-7s-plus btn-icon-wrapper"></i><i>&nbsp New
+                                People</i></button>&nbsp&nbsp&nbsp
+                        <button class="active btn btn-focus">Last Week</button>
+                        <button class="btn btn-focus">All Month</button>
+                    </div>
+                </div>
+                
+            <div class="table-responsive">
+                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th> Name</th>
+                            <th class="text-center">Address</th>
+                            <th class="text-center">Phone</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data_user %}
+                        <tr>
+                            <td class="text-center text-muted">#345</td>
+                            <td>
+                                <div class="widget-content p-0">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left mr-3">
+                                            <div class="widget-content-left">
+                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                        <div class="widget-content-left flex2">
+                                            <div class="widget-heading">{{i.name}}</div>
+                                            <div class="widget-subheading opacity-7">{{i.position}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">{{i.address}}</td>
+                            <td class="text-center">{{i.phone}}</td>
+                            <td class="text-center">
+                                <div class="badge badge-success">Online</div>
+                            </td>
+                            <td class="text-center">
+                                <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info"><i
+                                        class="pe-7s-eyedropper btn-icon-wrapper"> </i></button>
+                                <button class="mr-2 btn-icon btn-icon-only btn btn-outline-focus"><i
+                                        class="pe-7s-file btn-icon-wrapper"> </i></button>
+                                <a href="/delete_people/{{i._id}}">
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i
+                                            class="pe-7s-trash btn-icon-wrapper"> </i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-block text-center card-footer">
+                <button class="mr-2 btn-icon btn-icon-only btn btn-danger"><i
+                        class="pe-7s-trash btn-icon-wrapper"></i><i>&nbsp Delete table</i></button>
+                <button class="btn-wide btn btn-success"><i class="pe-7s-file btn-icon-wrapper"></i><i>Save
+                        all</i></button>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    <!-- <h2>List of users</h2>
+        <table class="table caption-top">
+            <caption>List of users</caption>
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data_user %}
+                <tr>
+                    <td> {{i._id}}</td>
+                    <td>{{i.name}}</td>
+                    <td class="hidetext">{{i.email}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.phone}}</td>
+                    <td><button type="submit" style="background-color: #4723D9;" class="btn btn-primary">Update
+                            User</button> <a href="/delete_user/{{i._id}}"><button style="background-color: red;"
+                                class="btn btn-primary">Delete User</button> </a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">UserNam</th>
+                    <th scope="col">PassWord</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+        </table>
+        <form action="#" method="post">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">ID User</label>
+                <input name="update_id" type="text" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Username</label>
+                <input name="update_user" type="text" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input name="update_password" type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-primary">Update User</button>
+        </form>
+        <form onclick="myFunc2()" align="right" name="form1" method="post" action="/login">
+            <label class="logoutLblPos">
+                <input class="btn btn-primary" name="submit2" type="submit" id="submit2" value="log out">
+            </label>
+        </form>
+
+        <div>
+
+        </div>
+        Container Main end
+
+
+        </form> -->
+    </div>
+</section>
+{% endblock %}
+{% block foot %}
+ <!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add People</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <form action="" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="Name">Name:</label>
+            <input type="text" class="form-control" name="name_people"  aria-describedby="emailHelp" placeholder="Enter your name ">
+            <small  class="form-text text-muted">Your information is safe with us.</small>
+          </div>
+          <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" name="address_people" placeholder="Enter your address ">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="number" class="form-control" name="phone_people" placeholder="Enter your phone ">
+          </div>
+          <div class="form-group">
+            <label for="position">Choose Position: </label>
+            <select style="background-color: #ECEFF1;" class="form-control" name="position_people">
+                <option>Administrator</option>
+                <option>Web Developer</option>
+                <option>Systems analyst</option>
+                <option>Network engineer</option>
+                <option>User experience designer</option>
+                <option>Database administrator</option>
+                <option>Data scientist</option>
+                <option>Software engineer</option>
+                <option>Computer scientist</option>
+                <option>Administrator</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}{% endblock %}

@@ -1,0 +1,1 @@
+user = api.find_account_by_mail(email)

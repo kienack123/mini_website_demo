@@ -1,10 +1,13 @@
 
-from flask import Flask,render_template,flash,request,session, request,g
-import flask
-import requests
-import configparser
+from operator import iconcat
+from unicodedata import name
+from flask import Flask,render_template,flash,request,session, request,g,json,jsonify
+from matplotlib.pyplot import title
+from pandas import describe_option
 from flask.helpers import flash, url_for
 from flask_login import LoginManager,login_user ,login_required ,logout_user,current_user
+from flask_restful.inputs import boolean
+from flask_pymongo import PyMongo, pymongo
 from matplotlib.style import use
 import pymongo
 from model import User
@@ -12,17 +15,22 @@ from datetime import timedelta
 from werkzeug.utils import redirect,secure_filename
 from werkzeug.security import check_password_hash ,generate_password_hash
 from flask_paginate import Pagination, get_page_parameter
-import secrets
 from bson.objectid import ObjectId
 import api  
 import settings
 
 # myclient = pymongo.MongoClient('mongodb://localhost:27017/')
 # mydb = myclient['mydatabase']
-
+  
 app = Flask(__name__)
 app.secret_key='ASDASDASDASDASDSA-4d536a7-fdd1-45db-9be7-49524a23495d'
+app.config['MONGO_URI']='mongodb://localhost:27017/mydatabase'
+mongo = PyMongo(app)
 app.permanent_session_lifetime = timedelta(minutes=30)
+
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -108,6 +116,33 @@ def index():
         # pagination = pagination
     return render_template("index.html", 
                             khachhang = khachhang ,user = user)
+
+
+app.route("/update_todolist/<id_todo>", methods =["GET","POST"])
+def update_todolist(id_todo):
+    if request.method == 'POST':
+        title = request.form.get["title"]
+        description = request.form.get["description"]
+        completed = request.form.get["completed"]
+        new_data = {"$set":{"title":title,
+                            "description":description,
+                            "completed":completed
+        }}
+        api.todo_list.update_one({'_id': ObjectId(id_todo)},new_data)
+        return redirect(url_for("to_do_list"))
+    return redirect(url_for("to_do_list"))
+
+app.route("/delete_todolist/<todo_id>", methods =["POST","GET"])
+@login_required
+def delete_todolist(todo_id):
+    api.todo_list.delete_one({'_id': ObjectId(todo_id)})
+    return redirect(url_for("to_do_list"))
+
+
+
+
+
+
 
 @app.route('/list_people',methods =['POST','GET'])
 @login_required
@@ -322,13 +357,40 @@ def home():
 @login_required
 def account():
     user = g.user
+    if request.method == "POST":
+        current_user_id = user.get('_id')
+        name = request.form.get('name')
+        nickname = request.form.get('nick_name')
+        phone = request.form.get('phone')
+        country = request.form.get('country')
+        region = request.form.get('region')
+        icon = request.form.get('filename')
+        icon = str(icon)
+        account_item = {"$set": {"name":name,
+                                "phone":phone,
+                                "country":country,
+                                "region":region,
+                                "nickname":nickname,
+                                "icon": icon
+                        }}
+        api.account.update_one({'_id': current_user_id},account_item)
     return render_template('account.html',user = user)
 
-@app.route('/to_do_list')
+
+
+
+@app.route('/to_do_list',methods=["POST","GET"])
 @login_required
 def to_do_list():
     user = g.user
-    return render_template("to_do_list.html",user = user)
+    todo =  api.todo_list.find()
+    if request.method == 'POST':
+        title = request.form.get("title")
+        description = request.form.get("description")
+        completed = request.form.get("completed")
+        api.create_todo(title,description,completed)
+        return render_template("to_do_list.html",user = user ,todo = todo)
+    return render_template("to_do_list.html",user = user ,todo = todo)
 
 @app.route('/setting')
 @login_required
@@ -344,5 +406,5 @@ def log_out():
     return redirect(url_for("home"))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
-    # app.run(host='127.0.0.1', port=5000, debug=True)
+    # app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)

@@ -8,65 +8,97 @@
                 <div>
                     <div class="row">
                         <div class="col-md-3 border-right">
-                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                                    class="rounded-circle mt-5" src="/static/img/O1RmJXT.jpg" width="90"><span
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                <img class="rounded-circle mt-5" src="/static/img/{{user.icon}}" id="pic"
+                                    width="90"><span
                                     class="font-weight-bold">{{user.name}}<span>({{user.nickname}})</span></span><span
                                     class="text-black-50">{{user.email}}</span>
-                                    <span>{{user.country}}</span></div>
+                                <span>{{user.country}}</span>
+                            </div>
                         </div>
                         <div class="col-md-5 border-right">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="text-right"><span class="font-weight-bold" >Edit your profile</span></h6>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6"><label class="labels">Name</label><input type="text"
-                                            class="form-control" placeholder="first name" value="Kien Tran"></div>
-                                    <div class="col-md-6"><label class="labels">Nick name</label><input type="text"
-                                            class="form-control" value="{{user.nickname}}" placeholder=""></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <label class="labels">Upload avatar</label>
-                                        <input class="form-control form-control-range" type="file" />
-                                    <div class="small text-muted mt-8">Upload your avatar or any other relevant file. Max file size 50 MB</div>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="p-3 py-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="text-right"><span class="font-weight-bold"><i class="fa fa-pen" style="font-size:15px"></i>&nbsp Edit your profile</span>
+                                        </h6>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12"><label class="labels">Position</label><input type="text"
-                                            class="form-control" placeholder="headline" value="{{user.job}}"></div>
-                                    <div class="col-md-12"><label class="labels">Number phone</label><input
-                                            type="text" class="form-control" placeholder="headline"
-                                            value="+84 {{user.phone}}"></div>
-                                    <div class="col-md-12"><label class="labels">Email</label><input type="email"
-                                            class="form-control" placeholder="education" value="{{user.email}}">
+                                    <span style="margin-bottom: 50px;"><i class="fa fa-marker" style="font-size:10px"></i> (<span style="color: red;">*</span>) Note, the <span class="font-weight-bold">red asterisk</span> mustn't change</span>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6"><label class="labels">Name</label><input name="name"
+                                                type="text" class="form-control" placeholder="first name"
+                                                value="Kien Tran"></div>
+                                        <div class="col-md-6"><label class="labels">Nick name</label><input
+                                                name="nick_name" type="text" class="form-control"
+                                                value="{{user.nickname}}" placeholder=""></div>
                                     </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <label class="labels">Upload avatar</label>
+                                            <input class="form-control form-control-range"
+                                                accept="image/gif, image/jpeg, image/png" type="file" name="icon"
+                                                id="upload" multiple="multiple" oninput="pic.src=window.URL.createObjectURL(this.files[0])" />
+                                                <input style="display: none;" id="filename" type="text" name="filename"/>
+
+                                            <div class="small text-muted mt-8">Upload your avatar or any other relevant
+                                                file. Max file size 50 MB</div>
+                                            
+                                        </div>
+                                    </div>
+                                    <script>
+                                        document.getElementById('upload').onchange = uploadOnChange;
+
+                                        function uploadOnChange() {
+
+
+
+                                            var filename = this.value;
+                                            var lastIndex = filename.lastIndexOf("\\");
+                                            if (lastIndex >= 0) {
+                                                filename = filename.substring(lastIndex + 1);
+                                            }
+                                            document.getElementById('filename').value = filename;
+                                        }
+                                    </script>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12"><label class="labels">Position (<span style="color: red;">*</span>)</label><input type="text"
+                                                class="form-control" placeholder="headline" value="{{user.job}}"></div>
+                                        <div class="col-md-12"><label class="labels">Number phone</label><input
+                                                type="text" class="form-control" placeholder="headline"
+                                                value="{{user.phone}}" name="phone" ></div>
+                                        <div class="col-md-12"><label class="labels">Email(<span style="color: red;">*</span>)</label><input type="email"
+                                                class="form-control" name="email" placeholder="education" value="{{user.email}}">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6"><label class="labels">Country</label><input type="text"
+                                                class="form-control" placeholder="country" name="country" value="{{user.country}}">
+                                        </div>
+                                        <div class="col-md-6"><label class="labels">State/Region</label><input
+                                                type="text" class="form-control" value="{{user.region}}" name="region" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 text-center">
+                                        <button type="submit" class="btn btn-primary profile-button" type="button">Save
+                                            Profile</button>
+                                        <button class="btn btn-focus profile-button" type="button"><a href="/index">
+                                                <h7 style="color: #fff;">Later</h7>
+                                            </a></button>
+                                    </div>
+
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6"><label class="labels">Country</label><input type="text"
-                                            class="form-control" placeholder="country" value="{{user.country}}"></div>
-                                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
-                                            class="form-control" value="{{user.region}}" placeholder=""></div>
-                                </div>
-                                <div class="mt-5 text-center">
-                                    <button class="btn btn-primary profile-button"
-                                        type="button">Save Profile</button>
-                                    <button class="btn btn-focus profile-button"
-                                        type="button"><a href="/index"><h7 style="color: #fff;">Later</h7></a></button>
-                                        
-                                </div>
-                            
-                            </div>
+                            </form>
                         </div>
                         <div class="col-md-4">
                             <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center experience"><span class="font-weight-bold" >Edit
+                                <div class="d-flex justify-content-between align-items-center experience"><span
+                                        class="font-weight-bold">Edit
                                         Experience</span>
-                                        <span class="border px-3 p-1 add-experience"><i
-                                            class="fa fa-plus" ></i>&nbsp;Experience</span>
-                                        </div>
-                                <div class="d-flex flex-row mt-3 exp-container"><img
-                                        src="/static/img/azSfBM3.png" width="45" height="45">
+                                    <span class="border px-3 p-1 add-experience"><i
+                                            class="fa fa-plus"></i>&nbsp;Experience</span>
+                                </div>
+                                <div class="d-flex flex-row mt-3 exp-container"><img src="/static/img/azSfBM3.png"
+                                        width="45" height="45">
                                     <div class="work-experience ml-1"><span class="font-weight-bold d-block">Senior
                                             Web Developer</span><span class="d-block text-black-50 labels">Twitter
                                             Inc.</span><span class="d-block text-black-50 labels">March,2017 - May
@@ -77,7 +109,7 @@
                                         src="https://img.icons8.com/color/100/000000/facebook.png" width="45"
                                         height="45">
                                     <div class="work-experience ml-1"><span class="font-weight-bold d-block">Senior
-                                        Web Developer</span><span class="d-block text-black-50 labels">Facebook
+                                            Web Developer</span><span class="d-block text-black-50 labels">Facebook
                                             Inc.</span><span class="d-block text-black-50 labels">March,2017 - May
                                             2020</span></div>
                                 </div>

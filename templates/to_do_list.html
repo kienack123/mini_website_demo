@@ -3,50 +3,72 @@
 {% block body %}
 <section>
     <div class="col-md-12">
-        <div class="card-hover-shadow-2x mb-2 card" >
-            <div class="card-header-tab card-header" >
-                <div class="card-header-title font-size-lg text-capitalize font-weight-normal "><i class="fa fa-tasks"></i>&nbsp;Your Task Lists</div>
+        <div class="card-hover-shadow-2x mb-2 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal "><i
+                        class="fa fa-tasks"></i>&nbsp;Your Task Lists</div>
             </div>
             <div class="scroll-area-lg">
                 <perfect-scrollbar class="ps-show-limits">
                     <div style="position: static;" class="ps ps--active-y">
                         <div class="ps-content">
                             <ul class=" list-group list-group-flush">
+                                {% for i in todo %}
                                 <li class="list-group-item">
                                     <div class="todo-indicator bg-warning"></div>
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left mr-2">
-                                                <div class="custom-checkbox custom-control"> <input class="custom-control-input" id="exampleCustomCheckbox12" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox12">&nbsp;</label> </div>
+                                                <div class="custom-checkbox custom-control"> <input
+                                                        class="custom-control-input" id="exampleCustomCheckbox12"
+                                                        type="checkbox"><label class="custom-control-label"
+                                                        for="exampleCustomCheckbox12">&nbsp;</label> </div>
                                             </div>
                                             <div class="widget-content-left">
-                                                <div class="widget-heading">Call Sam For payments <div class="badge badge-danger ml-2">Rejected</div>
+                                                <div class="widget-heading">{{i.title}}<div
+                                                        class="badge badge-danger ml-2">Rejected</div>
                                                 </div>
-                                                <div class="widget-subheading"><i>By Bob</i></div>
+                                                <div class="widget-subheading"><i>{{i.description}}</i></div>
                                             </div>
-                                            <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+                                            <div class="widget-content-right">
+                                                <a href="/update_todolist/{{i._id}}"><button
+                                                        class="border-0 btn-transition btn btn-outline-success"> <i
+                                                            class="fa fa-pen"></i></button></a>
+                                                <a href="/delete_todolist/{{i._id}}"><button
+                                                        class="border-0 btn-transition btn btn-outline-danger"> <i
+                                                            class="fa fa-trash"></i> </button>
+                                            </div></a>
                                         </div>
                                     </div>
                                 </li>
+                                {% endfor %}
                                 <li class="list-group-item">
                                     <div class="todo-indicator bg-focus"></div>
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left mr-2">
-                                                <div class="custom-checkbox custom-control"><input class="custom-control-input" id="exampleCustomCheckbox1" type="checkbox"><label class="custom-control-label" for="exampleCustomCheckbox1">&nbsp;</label></div>
+                                                <div class="custom-checkbox custom-control"><input
+                                                        class="custom-control-input" id="exampleCustomCheckbox1"
+                                                        type="checkbox"><label class="custom-control-label"
+                                                        for="exampleCustomCheckbox1">&nbsp;</label></div>
                                             </div>
                                             <div class="widget-content-left">
                                                 <div class="widget-heading">Make payment to Bluedart</div>
                                                 <div class="widget-subheading">
-                                                    <div>By Johnny <div class="badge badge-pill badge-info ml-2">NEW</div>
+                                                    <div>By Johnny <div class="badge badge-pill badge-info ml-2">NEW
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
+                                            <div class="widget-content-right"> <button
+                                                    class="border-0 btn-transition btn btn-outline-success"> <i
+                                                        class="fa fa-pen"></i></button> <button
+                                                    class="border-0 btn-transition btn btn-outline-danger"> <i
+                                                        class="fa fa-trash"></i> </button> </div>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item">
+                                <!-- <li class="list-group-item">
                                     <div class="todo-indicator bg-primary"></div>
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
@@ -120,15 +142,54 @@
                                             <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
                 </perfect-scrollbar>
             </div>
-            <div class="d-block text-center card-footer"><button class="mr-2  btn btn-danger">Cancel</button><button class="btn btn-primary">Add Task</button></div>
+            <div class="d-block text-center card-footer">
+                <button class="mr-2  btn btn-danger">Cancel</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert_todo">Add Task
+                </button>
+            </div>
         </div>
     </div>
 </section>
+{% endblock %}
+{% block foot %}
+ <!-- Modal -->
+<div class="modal fade" id="modal_insert_todo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <form action="" method="post">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="Name">Title:</label>
+            <input type="text" class="form-control" name="title"  placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea name="description" id="" cols="68" rows="10"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Status:</label>
+            <input type="checkbox" name="completed">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 {% block js %}{% endblock %}

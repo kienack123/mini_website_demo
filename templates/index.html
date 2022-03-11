@@ -15,7 +15,91 @@
     <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
     {% block head %}{% endblock %}
 </head>
+<style>
 
+    .modal-confirm {		
+	color: #636363;
+	width: 400px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;   
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+.modal-confirm .modal-body {
+	color: #999;
+}
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;		
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 10px 15px 25px;
+}
+.modal-confirm .modal-footer a {
+	color: #999;
+}		
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+.modal-confirm .icon-box i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #60c7c1;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+	background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+</style>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div style="background-color: #fff;" class="app-header header-shadow">
@@ -67,7 +151,7 @@
                     {% endblock %}
                     <ul class="header-menu nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="frameModalTopInfoDemo" class="nav-link" data-toggle="modal" >
                                 <i class="nav-link-icon fa fa-bell"> </i>
                                 Notifications
                             </a>
@@ -103,7 +187,7 @@
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg"
+                                            <img width="42" class="rounded-circle"  src="assets/images/avatars/1.jpg "
                                                 alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
@@ -120,7 +204,7 @@
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
-                                    <img class="rounded-circle mt-10" src="/static/img/O1RmJXT.jpg"
+                                    <img  class="rounded-circle mt-10" src="/static/img/{{user.icon}}" 
                                         style="width: 40px;">
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
@@ -139,12 +223,10 @@
                                     </button>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
-                                    <a href="/log_out">
-                                        <button type="button"
-                                            class="btn-shadow p-1 btn btn-danger btn-sm show-toastr-example">
-                                            <i class="fa fa-sign-out-alt pr-1 pl-1"></i>
-                                        </button>
-                                    </a>
+                                        <button type="button" data-toggle="modal" data-target="#modal_logout"
+                                            class="btn-shadow p-1 btn btn-danger">
+                                            <i class="fa fa-power-off pr-1 pl-1"></i>
+                                        </button>         
                                 </div>
                             </div>
                         </div>
@@ -1472,6 +1554,26 @@
         src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
 {% block foot %}
 {% endblock %}
+<div  id="modal_logout"  class="modal fade">
+	<div class="modal-dialog modal-confirm" >
+		<div class="modal-content">
+			<div class="modal-header flex-column" style="background-color: #fff;">
+				<div class="icon-box">
+					<i class="fa fa-power-off">&#xE5CD;</i>
+				</div>						
+				<h4 class="modal-title w-100">Are you sure?</h4>	
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p>Do you really want log out User <span style="color: #30eb9d;" class="font-weight-bold">{{user.email}}</span> to Website ?</p>
+			</div>
+			<div class="modal-footer justify-content-center" style="background-color: #fff;">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<a href="/log_out"><button type="button" class="btn btn-danger">Yes</button></a>
+			</div>
+		</div>
+	</div>
+</div> 
 </body>
 
 </html>

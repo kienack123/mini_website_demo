@@ -13,6 +13,7 @@ list_customer =mydb.list_customer
 list_product = mydb.list_product
 list_project =mydb.list_project
 list_team =mydb.list_team
+todo_list =mydb.todo_list
 
 
 
@@ -28,6 +29,32 @@ def create_account(name, job, email, password,phone,country,region):
                           "region":region,
                           })
     return account_item
+
+# def update_account_by_id(account_id,name,nick_name):
+#     if not isinstance(account_id, ObjectId):
+#         account_id = ObjectId(account_id)
+#     new_data = {"name":name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+#                 "nickname":nick_name,
+
+#                 }
+#     account.update_one({'_id': account_id}, {'$set': new_data})
+
+
+def create_todo(title,description,completed):
+    todo_item = todo_list.insert_one({"title":title,
+                          "description":description,
+                          "completed":completed})
+    return todo_item
+
+
+
 
 def insert_people(name_people,address_people,phone_people,position_people):
     people_item = list_people.insert_one({"name":name_people,

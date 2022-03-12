@@ -21,8 +21,8 @@
                                             <div class="widget-content-left mr-2">
                                                 <div class="custom-checkbox custom-control"> <input
                                                         class="custom-control-input" id="exampleCustomCheckbox12"
-                                                        type="checkbox"><label class="custom-control-label"
-                                                        for="exampleCustomCheckbox12">&nbsp;</label> </div>
+                                                        type="checkbox"><label
+                                                        class="custom-control-label">&nbsp;</label> </div>
                                             </div>
                                             <div class="widget-content-left">
                                                 <div class="widget-heading">{{i.title}}<div
@@ -158,38 +158,39 @@
 </section>
 {% endblock %}
 {% block foot %}
- <!-- Modal -->
-<div class="modal fade" id="modal_insert_todo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="modal_insert_todo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="Name">Title:</label>
+                        <input type="text" class="form-control" name="title" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="" cols="68" rows="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Status:</label>
+                        <input type="checkbox" name="completed">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+            </form>
         </div>
-      <form action="" method="post">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="Name">Title:</label>
-            <input type="text" class="form-control" name="title"  placeholder="">
-          </div>
-          <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea name="description" id="" cols="68" rows="10"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="description">Status:</label>
-            <input type="checkbox" name="completed">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Confirm</button>
-        </div>
-    </form>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}
 {% block js %}{% endblock %}

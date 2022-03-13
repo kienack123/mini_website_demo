@@ -1,6 +1,137 @@
 {% extends 'index.html' %}
-{% block head %}{% endblock %}
+{% block head %}
+<style>
+    .flip-card {
+        background-color: transparent;
+        width: 230px;
+        height: 280px;
+        perspective: 1000px;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .flip-card-front {
+        background-color: #bbb;
+        color: black;
+    }
+
+    .flip-card-back {
+        background-color: #2980b9;
+        color: white;
+        transform: rotateY(180deg);
+    }
+</style>
+{% endblock %}
 {% block body %}
+<section>
+    <div class="col-md-12">
+        <div class="card-hover-shadow-2x mb-2 card">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal ">
+                    <i></i>&nbsp;Customers
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <div class="card-container mx-auto mt-5">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="https://thuviendohoa.vn/2020/upload/images/thumbs/vector-logo-viettel-vien-thong-quan-doi-987.jpg?t=20170109_033322"
+                                            alt="Avatar" style="width:230px;height:280px;">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- ./col -->
+                    <div class="col-12 col-md-3">
+                        <div class="card-container mx-auto mt-5">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="https://image-us.24h.com.vn/upload/4-2021/images/2021-12-15/Pushdy-hop-tac-MB-Bank-cung-cap-giai-phap-toan-dien-cho-doanh-nghiep-SME-11-1639556711-901-width660height660.jpg"
+                                            alt="Avatar" style="width:230px;height:280px;">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- ./col -->
+                    <div class="col-12 col-md-3">
+                        <div class="card-container mx-auto mt-5">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="img_avatar.png" alt="Avatar" style="width:230px;height:280px;">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- ./col -->
+                    <div class="col-12 col-md-3">
+                        <div class="card-container mx-auto mt-5">
+                            <div class="flip-card">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front">
+                                        <img src="https://vnn-imgs-f.vgcloud.vn/2019/07/16/09/loc-qua-tang-danh-cho-khach-gui-tien-vietinbank.jpg"
+                                            alt="Avatar" style="width:230px;height:280px;">
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <h1>John Doe</h1>
+                                        <p>Architect & Engineer</p>
+                                        <p>We love that guy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- ./col -->
+                </div> <!-- ./row -->
+            </div>
+            <div class="d-block text-center card-footer">
+                <button class="mr-2  btn btn-danger">Cancel</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert_todo">New Services
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 {% block js %}{% endblock %}

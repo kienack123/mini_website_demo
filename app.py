@@ -1,15 +1,14 @@
 
-from operator import iconcat
+from ast import dump
 from unicodedata import name
 from flask import Flask,render_template,flash,request,session, request,g,json,jsonify
 from matplotlib.pyplot import title
-from pandas import describe_option
 from flask.helpers import flash, url_for
 from flask_login import LoginManager,login_user ,login_required ,logout_user,current_user
-from flask_restful.inputs import boolean
 from flask_pymongo import PyMongo, pymongo
-from matplotlib.style import use
 import pymongo
+from bson.json_util import dumps
+from sqlalchemy import not_
 from model import User
 from datetime import timedelta
 from werkzeug.utils import redirect,secure_filename
@@ -52,6 +51,14 @@ def unauthorized_callback():
 @app.route('/')
 def loadPage():
     return render_template('loadpage.html')
+
+@app.route('/success_register')
+def success_register():
+    return render_template("success_register.html")
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
     
 
 @app.route('/login',methods=['POST','GET'])
@@ -345,14 +352,6 @@ def project_card():
     user = g.user
     return render_template("project_card.html",user = user)
 
-@app.route('/success_register')
-def success_register():
-    return render_template("success_register.html")
-
-@app.route('/home')
-def home():
-    return render_template('home.html')
-
 @app.route('/account',methods = ["POST","GET"])
 @login_required
 def account():
@@ -374,6 +373,7 @@ def account():
                                 "icon": icon
                         }}
         api.account.update_one({'_id': current_user_id},account_item)
+        return render_template('account.html',user = user)
     return render_template('account.html',user = user)
 
 
@@ -404,6 +404,69 @@ def log_out():
     g.pop('user', None)
     logout_user()
     return redirect(url_for("home"))
+
+@app.route("/create_todo",methods = ["POST"])
+def create_todo():
+    if request.method == "POST":
+        _json = request.json
+        title = _json["title"]
+        description = _json["description"]
+        completed = _json["completed"]
+        api.todo_list.insert_one({
+            "title":title,
+            "description":description,
+            "completed":completed
+        })
+        resp = jsonify("created successfully !")
+        resp.status_code = 200
+        return resp
+    else:
+        return not_found()
+
+@app.errorhandler(404)
+def not_found(error = None):
+    message = {
+        'status': 404,
+        'messege':'Not found' + request.url
+    }
+    resp = jsonify(message)
+    resp.status_code = 404
+
+    return resp
+
+@app.route("/get_todo",methods = ["GET"])
+def get_todo():
+    todo = api.todo_list.find()
+    resp = dumps(todo)
+    return resp
+
+@app.route("/delete_todo/<id>",methods = ["DELETE"])
+def delete_todo(id):
+    api.todo_list.delete_one({'id':ObjectId(id)})
+    resp = jsonify("Delete Todo successfully !")
+    resp.status_code = 200 
+    return resp
+
+@app.route("/update_todo/<id>",methods = ["PUT"])
+def update_todo(id):
+    if request.method == "PUT":
+        _json = request.json
+        id = id
+        title = _json["title"]
+        description = _json["description"]
+        completed = _json["completed"]
+        api.account.update_one({'_id': ObjectId(id)},{'$set':{
+            'title':title,
+            'description':description,
+            'completed':completed
+        }})
+        resp = jsonify("Update Todo successfully !")
+        resp.status_code = 200
+
+        return resp
+    else:
+        return not_found()
+    
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=5000, debug=True)

@@ -387,11 +387,41 @@ def to_do_list():
         return render_template("to_do_list.html",user = user ,todo = todo)
     return render_template("to_do_list.html",user = user ,todo = todo)
 
+@app.route('/customers')
+@login_required
+def customers():
+    user = g.user
+    return render_template("customers_card.html",user = user)
+
 @app.route('/setting')
 @login_required
 def setting():
     user = g.user
     return render_template("setting.html",user = user)
+
+
+@app.route('/mail')
+@login_required
+def mail():
+    user = g.user
+    return render_template("mail.html",user = user)
+
+
+@app.route('/read_mail')
+@login_required
+def read_mail():
+    user = g.user
+    return render_template("read_mail.html",user = user)
+
+
+@app.route('/new_mail')
+@login_required
+def new_mail():
+    user = g.user
+    return render_template("new_mail.html",user = user)
+
+
+
 
 @app.route('/log_out')
 @login_required
@@ -461,7 +491,14 @@ def log_out():
 #         return resp
 #     else:
 #         return not_found()
-    
+
+@app.route('/test')
+def test1():
+    user = g.user
+    return render_template("test.html",user = user)
+
+
+
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0', port=5000, debug=True)

@@ -13,98 +13,147 @@
     <meta name="msapplication-tap-highlight" content="no">
     <link href="/static/img/11519895821548141953-128.png" rel="icon">
     <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    
     {% block head %}{% endblock %}
 </head>
 <style>
+    .modal-confirm {
+        color: #636363;
+        width: 400px;
+    }
 
-    .modal-confirm {		
-	color: #636363;
-	width: 400px;
-}
-.modal-confirm .modal-content {
-	padding: 20px;
-	border-radius: 5px;
-	border: none;
-	text-align: center;
-	font-size: 14px;
-}
-.modal-confirm .modal-header {
-	border-bottom: none;   
-	position: relative;
-}
-.modal-confirm h4 {
-	text-align: center;
-	font-size: 26px;
-	margin: 30px 0 -10px;
-}
-.modal-confirm .close {
-	position: absolute;
-	top: -5px;
-	right: -2px;
-}
-.modal-confirm .modal-body {
-	color: #999;
-}
-.modal-confirm .modal-footer {
-	border: none;
-	text-align: center;		
-	border-radius: 5px;
-	font-size: 13px;
-	padding: 10px 15px 25px;
-}
-.modal-confirm .modal-footer a {
-	color: #999;
-}		
-.modal-confirm .icon-box {
-	width: 80px;
-	height: 80px;
-	margin: 0 auto;
-	border-radius: 50%;
-	z-index: 9;
-	text-align: center;
-	border: 3px solid #f15e5e;
-}
-.modal-confirm .icon-box i {
-	color: #f15e5e;
-	font-size: 46px;
-	display: inline-block;
-	margin-top: 13px;
-}
-.modal-confirm .btn, .modal-confirm .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #60c7c1;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	min-width: 120px;
-	border: none;
-	min-height: 40px;
-	border-radius: 3px;
-	margin: 0 5px;
-}
-.modal-confirm .btn-secondary {
-	background: #c1c1c1;
-}
-.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
-	background: #a8a8a8;
-}
-.modal-confirm .btn-danger {
-	background: #f15e5e;
-}
-.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
-	background: #ee3535;
-}
-.trigger-btn {
-	display: inline-block;
-	margin: 100px auto;
-}
+    .modal-confirm .modal-content {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-confirm .modal-header {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .modal-confirm h4 {
+        text-align: center;
+        font-size: 26px;
+        margin: 30px 0 -10px;
+    }
+
+    .modal-confirm .close {
+        position: absolute;
+        top: -5px;
+        right: -2px;
+    }
+
+    .modal-confirm .modal-body {
+        color: #999;
+    }
+
+    .modal-confirm .modal-footer {
+        border: none;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 13px;
+        padding: 10px 15px 25px;
+    }
+
+    .modal-confirm .modal-footer a {
+        color: #999;
+    }
+
+    .modal-confirm .icon-box {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        border-radius: 50%;
+        z-index: 9;
+        text-align: center;
+        border: 3px solid #f15e5e;
+    }
+
+    .modal-confirm .icon-box i {
+        color: #f15e5e;
+        font-size: 46px;
+        display: inline-block;
+        margin-top: 13px;
+    }
+
+    .modal-confirm .btn,
+    .modal-confirm .btn:active {
+        color: #fff;
+        border-radius: 4px;
+        background: #60c7c1;
+        text-decoration: none;
+        transition: all 0.4s;
+        line-height: normal;
+        min-width: 120px;
+        border: none;
+        min-height: 40px;
+        border-radius: 3px;
+        margin: 0 5px;
+    }
+
+    .modal-confirm .btn-secondary {
+        background: #c1c1c1;
+    }
+
+    .modal-confirm .btn-secondary:hover,
+    .modal-confirm .btn-secondary:focus {
+        background: #a8a8a8;
+    }
+
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+
+    .modal-confirm .btn-danger:hover,
+    .modal-confirm .btn-danger:focus {
+        background: #ee3535;
+    }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+
+    .chat-online {
+        color: #34ce57
+    }
+
+    .chat-offline {
+        color: #e4606d
+    }
+
+    .chat-messages {
+        display: flex;
+        flex-direction: column;
+        max-height: 460px;
+        overflow-y: scroll
+    }
+
+    .chat-message-left,
+    .chat-message-right {
+        display: flex;
+        flex-shrink: 0
+    }
+
+    .chat-message-left {
+        margin-right: auto
+    }
+
+    .chat-message-right {
+        flex-direction: row-reverse;
+        margin-left: auto
+    }
 </style>
+
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div style="background-color: #fff;" class="app-header header-shadow">
             <div class="app-header__logo">
-                <img src="/static/img/11519895821548141953-128.png"  class="logo" style="width: 50px;">
+                <img src="/static/img/11519895821548141953-128.png" class="logo" style="width: 50px;">
                 <div>&nbsp</div>
                 <div class="header__pane ml-auto">
                     <div>
@@ -150,9 +199,9 @@
                     {% endblock %}
                     <ul class="header-menu nav">
                         <li class="nav-item">
-                            <a href="frameModalTopInfoDemo" class="nav-link" data-toggle="modal" >
+                            <a href="/mail" class="nav-link" data-toggle="modal">
                                 <i class="nav-link-icon fa fa-bell"> </i>
-                                Notifications
+                             Mail  
                             </a>
                         </li>
                         <li class="nav-item">
@@ -186,7 +235,7 @@
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             class="p-0 btn">
-                                            <img width="42" class="rounded-circle"  src="assets/images/avatars/1.jpg "
+                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg "
                                                 alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
@@ -203,13 +252,13 @@
                                     </div>
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
-                                    <img  class="rounded-circle mt-10" src="/static/img/{{user.icon}}" 
+                                    <img class="rounded-circle mt-10" src="/static/img/{{user.icon}}"
                                         style="width: 40px;">
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
 
-                                    <div class="widget-heading">
-                                        <a href="/account">Hello,{{user.name}}</a>
+                                    <div class="widget-heading ">
+                                        <a href="/account"  >Hello,{{user.name}}</a>
                                     </div>
                                     <div class="widget-subheading">
                                         {{user.job}}
@@ -222,10 +271,10 @@
                                     </button>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
-                                        <button type="button" data-toggle="modal" data-target="#modal_logout"
-                                            class="btn-shadow p-1 btn btn-danger">
-                                            <i class="fa fa-power-off pr-1 pl-1"></i>
-                                        </button>         
+                                    <button type="button" data-toggle="modal" data-target="#modal_logout"
+                                        class="btn-shadow p-1 btn btn-danger">
+                                        <i class="fa fa-power-off pr-1 pl-1"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +289,272 @@
             <div class="theme-settings__inner">
                 <div class="scrollbar-container">
                     <div class="theme-settings__options-wrapper">
-                        <h3 class="themeoptions-heading">Layout Options
+                        <div class="card" >
+                            <div class="row g-0">
+                                <!-- <div class="col-12 col-lg-5 col-xl-4 border-right">
+                                    <div class="px-4 d-none d-md-block">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1">
+                                                <input type="text" class="form-control my-3" placeholder="Search...">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="list-group-item list-group-item-action border-0">
+                                        <div class="badge bg-success float-right">5</div>
+                                        <div class="d-flex align-items-start">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                Vanessa Tucker
+                                                <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action border-0">
+                                        <div class="badge bg-success float-right">2</div>
+                                        <div class="d-flex align-items-start">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle mr-1" alt="William Harris" width="40" height="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                William Harris
+                                                <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action border-0">
+                                        <div class="d-flex align-items-start">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                Sharon Lessman
+                                                <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action border-0">
+                                        <div class="d-flex align-items-start">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png" class="rounded-circle mr-1" alt="Christina Mason" width="40" height="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                Christina Mason
+                                                <div class="small"><span class="fas fa-circle chat-offline"></span> Offline</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action border-0">
+                                        <div class="d-flex align-items-start">
+                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle mr-1" alt="Fiona Green" width="40" height="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                Fiona Green
+                                                <div class="small"><span class="fas fa-circle chat-offline"></span> Offline</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <hr class="d-block d-lg-none mt-1 mb-0">
+                                </div> -->
+                                <div class="col-12 col-lg-8 col-xl-12" >
+                                    <div class="py-2 px-4 border-bottom d-none d-lg-block">
+                                        <div class="d-flex align-items-center py-1" >
+                                            <div class="position-relative">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                    class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                    height="40">
+                                            </div>
+                                            <div class="flex-grow-1 pl-3">
+                                                <strong>Sharon Lessman</strong>
+                                                <div class="text-muted small"><em>Typing...</em></div>
+                                            </div>
+                                            <div>
+                                                <a href="javascript:void(0);" class="btn btn-outline-secondary"><i
+                                                        class="fa fa-camera"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-outline-primary"><i
+                                                        class="fa fa-image"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-outline-info"><i
+                                                        class="fa fa-cogs"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-outline-warning"><i
+                                                        class="fa fa-question"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="position-relative">
+                                        <div class="chat-messages p-4">
+
+                                            <div class="chat-message-right pb-4">
+                                                <div>
+                                                    <img src="/static/img/{{user.icon}}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:33 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">You</div>
+                                                    Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te
+                                                    vix.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                        height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:34 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
+                                                    Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat
+                                                    animal commodo.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-right mb-4">
+                                                <div>
+                                                    <img src="/static/img/{{user.icon}}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:35 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">You</div>
+                                                    Cum ea graeci tractatos.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                        height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:36 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
+                                                    Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor
+                                                    magna, vitae commodo lectus mauris et velit.
+                                                    Proin ultricies placerat imperdiet. Morbi varius quam ac venenatis
+                                                    tempus.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                        height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:37 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
+                                                    Cras pulvinar, sapien id vehicula aliquet, diam velit elementum
+                                                    orci.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-right mb-4">
+                                                <div>
+                                                    <img src="/static/img/{{user.icon}}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:38 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">You</div>
+                                                    Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te
+                                                    vix.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                        height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:39 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
+                                                    Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat
+                                                    animal commodo.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-right mb-4">
+                                                <div>
+                                                    <img src="/static/img/{{user.icon}}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:40 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">You</div>
+                                                    Cum ea graeci tractatos.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-right mb-4">
+                                                <div>
+                                                    <img src="/static/img/{{user.icon}}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:41 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">You</div>
+                                                    Morbi finibus, lorem id placerat ullamcorper, nunc enim ultrices
+                                                    massa, id dignissim metus urna eget purus.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                        height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:42 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
+                                                    Sed pulvinar, massa vitae interdum pulvinar, risus lectus porttitor
+                                                    magna, vitae commodo lectus mauris et velit.
+                                                    Proin ultricies placerat imperdiet. Morbi varius quam ac venenatis
+                                                    tempus.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-right mb-4">
+                                                <div>
+                                                    <img src="/static/img/{{user.icon}}" class="rounded-circle mr-1"
+                                                        alt="Chris Wood" width="40" height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:43 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                    <div class="font-weight-bold mb-1">You</div>
+                                                    Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te
+                                                    vix.
+                                                </div>
+                                            </div>
+
+                                            <div class="chat-message-left pb-4">
+                                                <div>
+                                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                                                        height="40">
+                                                    <div class="text-muted small text-nowrap mt-2">2:44 am</div>
+                                                </div>
+                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
+                                                    Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat
+                                                    animal commodo.
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-grow-0 py-3 px-4 border-top">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Type your message">
+                                            <button class="btn btn-primary"><i
+                                                    class="pe-7s btn-icon-wrapper"></i>&nbspSend</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <h3 class="themeoptions-heading">Layout Options
                         </h3>
                         <div class="p-3">
                             <ul class="list-group">
@@ -597,7 +911,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -637,11 +951,11 @@
                         </button>
                     </span>
                 </div>
-                <div class="scrollbar-sidebar">
+                <div class="scrollbar-sidebar" >
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">
-                                <i class="fa fa-address-card" style="font-size:24px"></i>
+                                <i class="fa fa-user"></i>
                                 Account
                             </li>
                             <li>
@@ -664,6 +978,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="/mail">
+                                            <i class="metismenu-icon">
+                                            </i>Mail in box
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="/list_people">
                                             <i class="metismenu-icon">
                                             </i>List People
@@ -681,16 +1001,12 @@
                                             </i>List Project
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="components-notifications.html">
-                                            <i class="metismenu-icon">
-                                            </i>Notifications
-                                        </a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
-                            <li class="app-sidebar__heading"><i class='fas fa-poll' style='font-size:24px'></i>
-                                Dashboards</li>
+                            
+                            <li class="app-sidebar__heading text-primary"> <i
+                                class="fa fa-an"></i>Dashboards</li>
                             <li>
                                 <a href="/index" class="">
                                     <i class="metismenu-icon pe-7s-rocket"></i>
@@ -698,7 +1014,7 @@
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">
-                                <i class="fa fa-table" style="font-size:24px"></i>
+                                <i class="fa fa-table"></i>
                                 Management
                             </li>
                             <li>
@@ -723,23 +1039,24 @@
                                     <i class="metismenu-state-icon  caret-left"></i>
                                 </a>
                             </li>
-                            <li class="app-sidebar__heading"><i class='fas fa-project-diagram'
-                                    style='font-size:24px'></i>All Services</li>
+                            <li class="app-sidebar__heading">
+                                <i class="fa fa-"></i>
+                            All Services</li>
                             <li>
                                 <a href="/project_card">
                                     <i class="metismenu-icon pe-7s-display2"></i>
                                     Services
                                 </a>
                             </li>
-                            <li class="app-sidebar__heading"><i class='fas fa-user-friends' style='font-size:24px'></i>
+                            <li class="app-sidebar__heading">
                                 All Customers</li>
                             <li>
-                                <a href="/setting">
+                                <a href="/customers">
                                     <i class="metismenu-icon pe-7s-graph2">
                                     </i>Customers
                                 </a>
                             </li>
-                            <li class="app-sidebar__heading"><i class='fas fa-folder' style='font-size:24px'></i> All
+                            <li class="app-sidebar__heading"> All
                                 Products</li>
                             <li>
                                 <a href="/customers_card">
@@ -747,11 +1064,10 @@
                                     </i>ChartJS
                                 </a>
                             </li>
-                            <li class="app-sidebar__heading"><i class='fas fa-network-wired' style='font-size:24px'></i>
+                            <li class="app-sidebar__heading">
                                 Resources</li>
                             <li>
-                                <a href=""
-                                    target="_blank">
+                                <a href="" target="_blank">
                                     <i class="metismenu-icon pe-7s-graph2">
                                     </i>
                                     Upgrade to PRO
@@ -762,7 +1078,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="app-main__outer">
                 {% block body %}
                 <div class="app-main__inner">
@@ -1551,28 +1866,30 @@
     </div>
     <script type="text/javascript"
         src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
-{% block foot %}
-{% endblock %}
-<div  id="modal_logout"  class="modal fade">
-	<div class="modal-dialog modal-confirm" >
-		<div class="modal-content">
-			<div class="modal-header flex-column" style="background-color: #fff;">
-				<div class="icon-box">
-					<i class="fa fa-power-off">&#xE5CD;</i>
-				</div>						
-				<h4 class="modal-title w-100">Are you sure?</h4>	
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			</div>
-			<div class="modal-body">
-				<p>Do you really want log out User <span style="color: #30eb9d;" class="font-weight-bold">{{user.email}}</span> to Website ?</p>
-			</div>
-			<div class="modal-footer justify-content-center" style="background-color: #fff;">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<a href="/log_out"><button type="button" class="btn btn-danger">Yes</button></a>
-			</div>
-		</div>
-	</div>
-</div> 
+    {% block foot %}
+    {% endblock %}
+    
+    <div id="modal_logout" class="modal fade ">
+        <div class="modal-dialog  modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header flex-column" style="background-color: #fff;">
+                    <div class="icon-box">
+                        <i class="fa fa-power-off">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want log out User <span style="color: #30eb9d;"
+                            class="font-weight-bold">{{user.email}}</span> to Website ?</p>
+                </div>
+                <div class="modal-footer justify-content-center" style="background-color: #fff;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="/log_out"><button type="button" class="btn btn-danger">Yes</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

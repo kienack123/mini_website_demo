@@ -1,12 +1,14 @@
 {% extends 'index.html' %}
-{% block head %}{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+{% endblock %}
 {% block body %}
 <section>
     <div class="col-md-12">
         <div class="card-hover-shadow-2x mb-2 card">
             <div class="card-header-tab card-header">
-                <div class="card-header-title font-size-lg text-capitalize font-weight-normal "><i
-                        class="fa fa-tasks"></i>&nbsp;Your Task Lists</div>
+                <div class="card-header-title font-size-xlg text-capitalize  font-weight-normal "><i
+                        class="fa fa-tasks "></i>&nbsp;Your Task Lists</div>
             </div>
             <div class="scroll-area-lg">
                 <perfect-scrollbar class="ps-show-limits">
@@ -34,10 +36,19 @@
                                                 <a href="/update_todolist/{{i._id}}"><button
                                                         class="border-0 btn-transition btn btn-outline-success"> <i
                                                             class="fa fa-pen"></i></button></a>
-                                                <a href="/delete_todolist/{{i._id}}"><button
+                                                <a href="/delete_todolist/{{i._id}}"><button onclick="fireSweetAlert()"
                                                         class="border-0 btn-transition btn btn-outline-danger"> <i
                                                             class="fa fa-trash"></i> </button>
                                             </div></a>
+                                            <script>
+                                                function fireSweetAlert() {
+                                                Swal.fire(
+                                                    'Good job!',
+                                                    'You clicked the button!',
+                                                    'success'
+                                                )
+                                            }
+                                            </script>
                                         </div>
                                     </div>
                                 </li>
@@ -62,8 +73,8 @@
                                             </div>
                                             <div class="widget-content-right"> <button
                                                     class="border-0 btn-transition btn btn-outline-success"> <i
-                                                        class="fa fa-pen"></i></button> <button
-                                                    class="border-0 btn-transition btn btn-outline-danger"> <i
+                                                        class="fa fa-pen"></i></button>
+                                                     <button class="border-0 btn-transition btn btn-outline-danger"> <i
                                                         class="fa fa-trash"></i> </button> </div>
                                         </div>
                                     </div>
@@ -186,11 +197,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button type="submit " class="btn btn-primary">Confirm</button>
                 </div>
+               
             </form>
         </div>
     </div>
 </div>
 {% endblock %}
-{% block js %}{% endblock %}
+{% block js %}
+
+{% endblock %}

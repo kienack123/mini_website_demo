@@ -1,5 +1,455 @@
 {% extends 'index.html' %}
-{% block head %}{% endblock %}
+{% block head %}
+<style>
+    /* User Cards */
+    .user-box {
+        width: 110px;
+        margin: auto;
+        margin-bottom: 20px;
+
+    }
+
+    .user-box img {
+        width: 100%;
+        border-radius: 50%;
+        padding: 3px;
+        background: #fff;
+        -webkit-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        -ms-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-card-2 .card {
+        position: relative;
+    }
+
+    .profile-card-2 .card .card-body {
+        z-index: 1;
+    }
+
+    .profile-card-2 .card::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        height: 112px;
+        background-color: #e6e6e6;
+    }
+
+    .profile-card-2 .card.profile-primary::before {
+        background-color: #008cff;
+    }
+
+    .profile-card-2 .card.profile-success::before {
+        background-color: #15ca20;
+    }
+
+    .profile-card-2 .card.profile-danger::before {
+        background-color: #fd3550;
+    }
+
+    .profile-card-2 .card.profile-warning::before {
+        background-color: #ff9700;
+    }
+
+    .profile-card-2 .user-box {
+        margin-top: 30px;
+    }
+
+    .profile-card-3 .user-fullimage {
+        position: relative;
+    }
+
+    .profile-card-3 .user-fullimage .details {
+        position: absolute;
+        bottom: 0;
+        left: 0px;
+        width: 100%;
+    }
+
+    .profile-card-4 .user-box {
+        width: 110px;
+        margin: auto;
+        margin-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    .profile-card-4 .list-icon {
+        display: table-cell;
+        font-size: 30px;
+        padding-right: 20px;
+        vertical-align: middle;
+        color: #223035;
+    }
+
+    .profile-card-4 .list-details {
+        display: table-cell;
+        vertical-align: middle;
+        font-weight: 600;
+        color: #223035;
+        font-size: 15px;
+        line-height: 15px;
+    }
+
+    .profile-card-4 .list-details small {
+        display: table-cell;
+        vertical-align: middle;
+        font-size: 12px;
+        font-weight: 400;
+        color: #808080;
+    }
+
+    /*Nav Tabs & Pills */
+    .nav-tabs .nav-link {
+        color: #223035;
+        font-size: 12px;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin: 2px;
+        margin-bottom: 0;
+        padding: 12px 20px;
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+
+    }
+
+    .nav-tabs .nav-link:hover {
+        border: 1px solid transparent;
+    }
+
+    .nav-tabs .nav-link i {
+        margin-right: 2px;
+        font-weight: 600;
+    }
+
+    .top-icon.nav-tabs .nav-link i {
+        margin: 0px;
+        font-weight: 500;
+        display: block;
+        font-size: 20px;
+        padding: 5px 0;
+    }
+
+    .nav-tabs-primary.nav-tabs {
+        border-bottom: 1px solid #008cff;
+    }
+
+    .nav-tabs-primary .nav-link.active,
+    .nav-tabs-primary .nav-item.show>.nav-link {
+        color: #008cff;
+        background-color: #fff;
+        border-color: #008cff #008cff #fff;
+        border-top: 3px solid #008cff;
+    }
+
+    .nav-tabs-success.nav-tabs {
+        border-bottom: 1px solid #15ca20;
+    }
+
+    .nav-tabs-success .nav-link.active,
+    .nav-tabs-success .nav-item.show>.nav-link {
+        color: #15ca20;
+        background-color: #fff;
+        border-color: #15ca20 #15ca20 #fff;
+        border-top: 3px solid #15ca20;
+    }
+
+    .nav-tabs-info.nav-tabs {
+        border-bottom: 1px solid #0dceec;
+    }
+
+    .nav-tabs-info .nav-link.active,
+    .nav-tabs-info .nav-item.show>.nav-link {
+        color: #0dceec;
+        background-color: #fff;
+        border-color: #0dceec #0dceec #fff;
+        border-top: 3px solid #0dceec;
+    }
+
+    .nav-tabs-danger.nav-tabs {
+        border-bottom: 1px solid #fd3550;
+    }
+
+    .nav-tabs-danger .nav-link.active,
+    .nav-tabs-danger .nav-item.show>.nav-link {
+        color: #fd3550;
+        background-color: #fff;
+        border-color: #fd3550 #fd3550 #fff;
+        border-top: 3px solid #fd3550;
+    }
+
+    .nav-tabs-warning.nav-tabs {
+        border-bottom: 1px solid #ff9700;
+    }
+
+    .nav-tabs-warning .nav-link.active,
+    .nav-tabs-warning .nav-item.show>.nav-link {
+        color: #ff9700;
+        background-color: #fff;
+        border-color: #ff9700 #ff9700 #fff;
+        border-top: 3px solid #ff9700;
+    }
+
+    .nav-tabs-dark.nav-tabs {
+        border-bottom: 1px solid #223035;
+    }
+
+    .nav-tabs-dark .nav-link.active,
+    .nav-tabs-dark .nav-item.show>.nav-link {
+        color: #223035;
+        background-color: #fff;
+        border-color: #223035 #223035 #fff;
+        border-top: 3px solid #223035;
+    }
+
+    .nav-tabs-secondary.nav-tabs {
+        border-bottom: 1px solid #75808a;
+    }
+
+    .nav-tabs-secondary .nav-link.active,
+    .nav-tabs-secondary .nav-item.show>.nav-link {
+        color: #75808a;
+        background-color: #fff;
+        border-color: #75808a #75808a #fff;
+        border-top: 3px solid #75808a;
+    }
+
+    .tabs-vertical .nav-tabs .nav-link {
+        color: #223035;
+        font-size: 12px;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 600;
+        margin: 2px;
+        margin-right: -1px;
+        padding: 12px 1px;
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        border-radius: 0;
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+    }
+
+    .tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical .nav-tabs .nav-link.active {
+        color: #495057;
+        background-color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff;
+        border-bottom: 1px solid #dee2e6;
+        border-right: 0;
+        border-left: 1px solid #dee2e6;
+    }
+
+    .tabs-vertical-primary.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #008cff;
+    }
+
+    .tabs-vertical-primary.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-primary.tabs-vertical .nav-tabs .nav-link.active {
+        color: #008cff;
+        background-color: #fff;
+        border-color: #008cff #008cff #fff;
+        border-bottom: 1px solid #008cff;
+        border-right: 0;
+        border-left: 3px solid #008cff;
+    }
+
+    .tabs-vertical-success.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #15ca20;
+    }
+
+    .tabs-vertical-success.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-success.tabs-vertical .nav-tabs .nav-link.active {
+        color: #15ca20;
+        background-color: #fff;
+        border-color: #15ca20 #15ca20 #fff;
+        border-bottom: 1px solid #15ca20;
+        border-right: 0;
+        border-left: 3px solid #15ca20;
+    }
+
+    .tabs-vertical-info.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #0dceec;
+    }
+
+    .tabs-vertical-info.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-info.tabs-vertical .nav-tabs .nav-link.active {
+        color: #0dceec;
+        background-color: #fff;
+        border-color: #0dceec #0dceec #fff;
+        border-bottom: 1px solid #0dceec;
+        border-right: 0;
+        border-left: 3px solid #0dceec;
+    }
+
+    .tabs-vertical-danger.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #fd3550;
+    }
+
+    .tabs-vertical-danger.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-danger.tabs-vertical .nav-tabs .nav-link.active {
+        color: #fd3550;
+        background-color: #fff;
+        border-color: #fd3550 #fd3550 #fff;
+        border-bottom: 1px solid #fd3550;
+        border-right: 0;
+        border-left: 3px solid #fd3550;
+    }
+
+    .tabs-vertical-warning.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #ff9700;
+    }
+
+    .tabs-vertical-warning.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-warning.tabs-vertical .nav-tabs .nav-link.active {
+        color: #ff9700;
+        background-color: #fff;
+        border-color: #ff9700 #ff9700 #fff;
+        border-bottom: 1px solid #ff9700;
+        border-right: 0;
+        border-left: 3px solid #ff9700;
+    }
+
+    .tabs-vertical-dark.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #223035;
+    }
+
+    .tabs-vertical-dark.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-dark.tabs-vertical .nav-tabs .nav-link.active {
+        color: #223035;
+        background-color: #fff;
+        border-color: #223035 #223035 #fff;
+        border-bottom: 1px solid #223035;
+        border-right: 0;
+        border-left: 3px solid #223035;
+    }
+
+    .tabs-vertical-secondary.tabs-vertical .nav-tabs {
+        border: 0;
+        border-right: 1px solid #75808a;
+    }
+
+    .tabs-vertical-secondary.tabs-vertical .nav-tabs .nav-item.show .nav-link,
+    .tabs-vertical-secondary.tabs-vertical .nav-tabs .nav-link.active {
+        color: #75808a;
+        background-color: #fff;
+        border-color: #75808a #75808a #fff;
+        border-bottom: 1px solid #75808a;
+        border-right: 0;
+        border-left: 3px solid #75808a;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: .25rem;
+        color: #223035;
+        font-size: 12px;
+        text-align: center;
+        letter-spacing: 1px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 3px;
+        padding: 12px 20px;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+
+    }
+
+    .nav-pills .nav-link:hover {
+        background-color: #f4f5fa;
+    }
+
+    .nav-pills .nav-link i {
+        margin-right: 2px;
+        font-weight: 600;
+    }
+
+    .top-icon.nav-pills .nav-link i {
+        margin: 0px;
+        font-weight: 500;
+        display: block;
+        font-size: 20px;
+        padding: 5px 0;
+    }
+
+    .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {
+        color: #fff;
+        background-color: #008cff;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(0, 140, 255, 0.5);
+    }
+
+    .nav-pills-success .nav-link.active,
+    .nav-pills-success .show>.nav-link {
+        color: #fff;
+        background-color: #15ca20;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(21, 202, 32, .5);
+    }
+
+    .nav-pills-info .nav-link.active,
+    .nav-pills-info .show>.nav-link {
+        color: #fff;
+        background-color: #0dceec;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(13, 206, 236, 0.5);
+    }
+
+    .nav-pills-danger .nav-link.active,
+    .nav-pills-danger .show>.nav-link {
+        color: #fff;
+        background-color: #fd3550;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(253, 53, 80, .5);
+    }
+
+    .nav-pills-warning .nav-link.active,
+    .nav-pills-warning .show>.nav-link {
+        color: #fff;
+        background-color: #ff9700;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(255, 151, 0, .5);
+    }
+
+    .nav-pills-dark .nav-link.active,
+    .nav-pills-dark .show>.nav-link {
+        color: #fff;
+        background-color: #223035;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(34, 48, 53, .5);
+    }
+
+    .nav-pills-secondary .nav-link.active,
+    .nav-pills-secondary .show>.nav-link {
+        color: #fff;
+        background-color: #75808a;
+        box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(117, 128, 138, .5);
+    }
+
+    .card .tab-content {
+        padding: 1rem 0 0 0;
+    }
+
+    .z-depth-3 {
+        -webkit-box-shadow: 0 11px 7px 0 rgba(0, 0, 0, 0.19), 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 11px 7px 0 rgba(0, 0, 0, 0.19), 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+    }
+</style>
+{% endblock %}
 {% block body %}
 <section>
     <div class="col-auto">
@@ -7,96 +457,351 @@
             <div class="main-card mb-3 card">
                 <div>
                     <div class="row">
-                        <div class="col-md-3 border-right">
+                        <div class="col-md-3 border-right" style="margin-top: -30px;">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img class="rounded-circle mt-5" src="/static/img/{{user.icon}}" id="pic"
                                     width="90"><span
                                     class="font-weight-bold">{{user.name}}<span>({{user.nickname}})</span></span><span
                                     class="text-black-50">{{user.email}}</span>
                                 <span>{{user.country}}</span>
+                                <hr class="my-4">
+                                <ul class="list-group list-group-flush">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-globe me-2 icon-inline ">
+                                                <circle cx="12" cy="12" r="10"></circle>
+                                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                                <path
+                                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                                </path>
+                                            </svg>&nbsp;<span class="font-weight-bold">Website</span></h6>
+                                        <span class="text-secondary ">https://demo.com</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-github me-2 icon-inline">
+                                                <path
+                                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                                </path>
+                                            </svg> <span class="font-weight-bold">Github</span></h6>
+                                        <span class="text-secondary">bootdey</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-twitter me-2 icon-inline text-info">
+                                                <path
+                                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                                </path>
+                                            </svg> <span class="font-weight-bold">Twitter</span></h6>
+                                        <span class="text-secondary">@bootdey</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-instagram me-2 icon-inline text-danger">
+                                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                            </svg> <span class="font-weight-bold">Instagram</span></h6>
+                                        <span class="text-secondary"> bootdey</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-facebook me-2 icon-inline text-primary">
+                                                <path
+                                                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                                                </path>
+                                            </svg> <span class="font-weight-bold">Facebook</span></h6>
+                                        <span class="text-secondary">bootdey</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="col-md-5 border-right">
-                            <form action="" method="post" enctype="multipart/form-data">
-                                <div class="p-3 py-5">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h6 class="text-right"><span class="font-weight-bold"><i class="fa fa-pen" style="font-size:15px"></i>&nbsp Edit your profile</span>
-                                        </h6>
-                                    </div>
-                                    <span style="margin-bottom: 50px;"><i class="fa fa-marker" style="font-size:10px"></i> (<span style="color: red;">*</span>) Note, the <span class="font-weight-bold">red asterisk</span> mustn't change</span>
-                                    <div class="row mt-2">
-                                        <div class="col-md-6"><label class="labels">Name</label><input name="name"
-                                                type="texst" class="form-control" placeholder="first name"
-                                                value="Kien Tran"></div>
-                                        <div class="col-md-6"><label class="labels">Nick name</label><input
-                                                name="nick_name" type="text" class="form-control"
-                                                value="{{user.nickname}}" placeholder=""></div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-12">
-                                            <label class="labels">Upload avatar</label>
-                                            <input class="form-control form-control-range"
-                                                accept="image/gif, image/jpeg, image/png" type="file" name="icon"
-                                                id="upload" multiple="multiple" oninput="pic.src=window.URL.createObjectURL(this.files[0])" />
-                                                <input style="display: none;" id="filename" type="text" name="filename"/>
-
-                                            <div class="small text-muted mt-8">Upload your avatar or any other relevant
-                                                file. Max file size 50 MB</div>
-                                            
+                        <div class="col-md-6 border-right">
+                            <div class="card-body">
+                                <ul class="nav nav-pills nav-pills-dark nav-justified">
+                                    <li class="nav-item">
+                                        <a href="javascript:void();" data-target="#profile" data-toggle="pill"
+                                            class="nav-link active show"><i class="fa fa-user"></i> <span
+                                                class="hidden-xs">Profile</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void();" data-target="#messages" data-toggle="pill"
+                                            class="nav-link"><i class="fa fa-comment"></i> <span
+                                                class="hidden-xs">Messages</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void();" data-target="#edit" data-toggle="pill"
+                                            class="nav-link"><i class="fa fa-edit"></i> <span
+                                                class="hidden-xs">Edit</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content p-3">
+                                    <div class="tab-pane active show" id="profile">
+                                        <h5 class="mb-3"><span class="font-weight-bold">  User Profile</span></h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h6>About</h6>
+                                                <p>
+                                                    Web Designer, UI/UX Engineer
+                                                </p>
+                                                <h6>Hobbies</h6>
+                                                <p>
+                                                    Indie music, skiing and hiking. I love the great outdoors.
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Recent badges</h6>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">html5</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">react</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">codeply</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">angularjs</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">css3</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">jquery</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">bootstrap</a>
+                                                <a href="javascript:void();"
+                                                    class="badge badge-dark badge-pill">responsive-design</a>
+                                                <hr>
+                                                <span class="badge badge-primary"><i class="fa fa-user"></i> 900
+                                                    Followers</span>
+                                                <span class="badge badge-success"><i class="fa fa-cog"></i> 43
+                                                    Forks</span>
+                                                <span class="badge badge-danger"><i class="fa fa-eye"></i> 245
+                                                    Views</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h5 class="mt-2 mb-3"><span
+                                                        class="fa fa-clock-o ion-clock float-right"></span> Recent
+                                                    Activity</h5>
+                                                <table class="table table-hover table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>Abby</strong> joined ACME Project Team in
+                                                                <strong>`Collaboration`</strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>Gary</strong> deleted My Board1 in
+                                                                <strong>`Discussions`</strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>Kensington</strong> deleted MyBoard3 in
+                                                                <strong>`Discussions`</strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>John</strong> deleted My Board1 in
+                                                                <strong>`Discussions`</strong>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>Skell</strong> deleted his post Look at Why this
+                                                                is.. in <strong>`Discussions`</strong>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
+                                        <!--/row-->
                                     </div>
-                                    <script>
-                                        document.getElementById('upload').onchange = uploadOnChange;
-
-                                        function uploadOnChange() {
-
-
-
-                                            var filename = this.value;
-                                            var lastIndex = filename.lastIndexOf("\\");
-                                            if (lastIndex >= 0) {
-                                                filename = filename.substring(lastIndex + 1);
-                                            }
-                                            document.getElementById('filename').value = filename;
-                                        }
-                                    </script>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12"><label class="labels">Position (<span style="color: red;">*</span>)</label><input type="text"
-                                                class="form-control" placeholder="headline" value="{{user.job}}"></div>
-                                        <div class="col-md-12"><label class="labels">Number phone</label><input
-                                                type="text" class="form-control" placeholder="headline"
-                                                value="{{user.phone}}" name="phone" ></div>
-                                        <div class="col-md-12"><label class="labels">Email(<span style="color: red;">*</span>)</label><input type="email"
-                                                class="form-control" name="email" placeholder="education" value="{{user.email}}">
+                                    <div class="tab-pane" id="messages">
+                                        <div class="alert alert-info alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="icon-info"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                                <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-6"><label class="labels">Country</label><input type="text"
-                                                class="form-control" placeholder="country" name="country" value="{{user.country}}">
+                                        <div class="alert alert-warning alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="icon-info"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                                <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6"><label class="labels">State/Region</label><input
-                                                type="text" class="form-control" value="{{user.region}}" name="region" placeholder="">
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="icon-info"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                                <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
+                                            </div>
                                         </div>
+                                        <table class="table table-hover table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-right font-weight-bold">3 hrs ago</span> Here
+                                                        is your a link to the latest summary report from the..
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-right font-weight-bold">Yesterday</span>
+                                                        There has been a request on your account since that was..
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-right font-weight-bold">9/10</span> Porttitor
+                                                        vitae ultrices quis, dapibus id dolor. Morbi venenatis lacinia
+                                                        rhoncus.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-right font-weight-bold">9/4</span> Vestibulum
+                                                        tincidunt ullamcorper eros eget luctus.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span class="float-right font-weight-bold">9/4</span>
+                                                        Maxamillion ais the fix for tibulum tincidunt ullamcorper eros.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="mt-5 text-center">
-                                        <button type="submit" class="btn btn-primary profile-button" type="button">Save
-                                            Profile</button>
-                                        <button class="btn btn-focus profile-button" type="button"><a href="/index">
-                                                <h7 style="color: #fff;">Later</h7>
-                                            </a></button>
-                                    </div>
+                                    <div class="tab-pane" id="edit">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <div class="p-3 py-5">
+                                                <div class="d-flex justify-content-between align-items-center mb-3"
+                                                    style="margin-top: -30px;">
+                                                    <h6 class="text-right "><span class="font-weight-bold"><i
+                                                                class="fa fa-pen" style="font-size:15px"></i>&nbsp Edit
+                                                            your profile</span>
+                                                    </h6>
+                                                </div>
+                                                <span style="margin-bottom: 50px;"><i class="fa fa-marker"
+                                                        style="font-size:10px"></i> (<span style="color: red;">*</span>)
+                                                    Note, the <span class="font-weight-bold">red asterisk</span> mustn't
+                                                    change</span>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-6"><label class="labels">Name</label><input
+                                                            name="name" type="texst" class="form-control"
+                                                            placeholder="first name" value="Kien Tran"></div>
+                                                    <div class="col-md-6"><label class="labels">Nick name</label><input
+                                                            name="nick_name" type="text" class="form-control"
+                                                            value="{{user.nickname}}" placeholder=""></div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="col-md-12">
+                                                        <label class="labels">Upload avatar</label>
+                                                        <input class="form-control form-control-range"
+                                                            accept="image/gif, image/jpeg, image/png" type="file"
+                                                            name="icon" id="upload" multiple="multiple"
+                                                            oninput="pic.src=window.URL.createObjectURL(this.files[0])" />
+                                                        <input style="display: none;" id="filename" type="text"
+                                                            name="filename" />
 
+                                                        <div class="small text-muted mt-8">Upload your avatar or any
+                                                            other relevant
+                                                            file. Max file size 50 MB</div>
+
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    document.getElementById('upload').onchange = uploadOnChange;
+
+                                                    function uploadOnChange() {
+
+
+
+                                                        var filename = this.value;
+                                                        var lastIndex = filename.lastIndexOf("\\");
+                                                        if (lastIndex >= 0) {
+                                                            filename = filename.substring(lastIndex + 1);
+                                                        }
+                                                        document.getElementById('filename').value = filename;
+                                                    }
+                                                </script>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-12"><label class="labels">Position (<span
+                                                                style="color: red;">*</span>)</label><input type="text"
+                                                            class="form-control" placeholder="headline"
+                                                            value="{{user.job}}"></div>
+                                                    <div class="col-md-12"><label class="labels">Number
+                                                            phone</label><input type="text" class="form-control"
+                                                            placeholder="headline" value="{{user.phone}}" name="phone">
+                                                    </div>
+                                                    <div class="col-md-12"><label class="labels">Email(<span
+                                                                style="color: red;">*</span>)</label><input type="email"
+                                                            class="form-control" name="email" placeholder="education"
+                                                            value="{{user.email}}">
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-6"><label class="labels">Country</label><input
+                                                            type="text" class="form-control" placeholder="country"
+                                                            name="country" value="{{user.country}}">
+                                                    </div>
+                                                    <div class="col-md-6"><label
+                                                            class="labels">State/Region</label><input type="text"
+                                                            class="form-control" value="{{user.region}}" name="region"
+                                                            placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="mt-5 text-center">
+                                                    <button type="submit" class="btn btn-primary profile-button"
+                                                        type="button">Save
+                                                        Profile</button>
+                                                    <button class="btn btn-dark profile-button" type="button"><a
+                                                            href="/index">
+                                                            <h7 style="color: #fff;">Later</h7>
+                                                        </a></button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </form>
+                            </div>
+
                         </div>
-                        <div class="col-md-4">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center experience"><span
-                                        class="font-weight-bold">Edit
+                        <div class="col-md-3" style="margin-top: px;">
+                            <div class="p-1 py-5">
+                                <div class="d-flex justify-content-between align-items-center experience"
+                                    ><span class="font-weight-bold " >Edit
                                         Experience</span>
+                                </div><br>
+                                <div>
                                     <span class="border px-3 p-1 add-experience"><i
-                                            class="fa fa-plus"></i>&nbsp;Experience</span>
-                                </div>
+                                        class="fa fa-plus"></i>&nbsp;Experience</span>
+                                </div><br>
                                 <div class="d-flex flex-row mt-3 exp-container"><img src="/static/img/azSfBM3.png"
                                         width="45" height="45">
                                     <div class="work-experience ml-1"><span class="font-weight-bold d-block">Senior

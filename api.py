@@ -42,7 +42,6 @@ def create_account(name, job, email, password,phone,country,region):
 #                 "nickname":nick_name,
 #                 "nickname":nick_name,
 #                 "nickname":nick_name,
-
 #                 }
 #     account.update_one({'_id': account_id}, {'$set': new_data})
 

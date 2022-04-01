@@ -1,5 +1,7 @@
 {% extends 'index.html' %}
-{% block head %}{% endblock %}
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+{% endblock %}
 {% block body %}
 <section>
     <div class="col-auto">
@@ -11,127 +13,149 @@
                             <form action="/list_team/find_team_by_id" method="get">
                                 <div class="input-group rounded">
                                     <input type="text" name="find_name_team" class="form-control rounded"
-                                        placeholder="Search team" aria-label="Search"
-                                        aria-describedby="search-addon" />
+                                        placeholder="Search team" aria-label="Search" aria-describedby="search-addon" />
                                     <button type="submit" class="btn-wide btn btn-dark"><i
                                             class="pe-7s-search btn-icon-wrapper"></i><i></i></button>
                                 </div>
                         </div>
                         </form>
-                        <button class="btn-wide btn btn-warning" data-toggle="modal" data-target="#exampleModal3"><i class="pe-7s-plus btn-icon-wrapper"></i><i>&nbsp New
+                        <button class="btn-wide btn btn-warning" data-toggle="modal" data-target="#exampleModal3"><i
+                                class="pe-7s-plus btn-icon-wrapper"></i><i>&nbsp New
                                 Team</i></button>&nbsp&nbsp&nbsp
                         <button class="active btn btn-focus">Last Week</button>
                         <button class="btn btn-focus">All Month</button>
                     </div>
                 </div>
-            <div class="table-responsive">
-                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Name Team</th>
-                            <th class="text-center">Member</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in list_team %}
-                        <tr>
-                            <td class="text-center text-muted">#345</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg"
-                                                    alt="">
+                <div class="table-responsive">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Name Team</th>
+                                <th class="text-center">Member</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in list_team %}
+                            <tr>
+                                <td class="text-center text-muted">#345</td>
+                                <td>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img width="40" class="rounded-circle"
+                                                        src="assets/images/avatars/4.jpg" alt="">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">{{i.job}}</div>
-                                            <div class="widget-subheading opacity-7">{{i.name}}
+                                            <div class="widget-content-left flex2">
+                                                <div class="widget-heading">{{i.job}}</div>
+                                                <div class="widget-subheading opacity-7">{{i.name}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="text-center"></td>
-                            <td class="text-center">
-                                <div class="badge badge-warning">off</div>
-                            </td>
-                            <td class="text-center">
-                                <button class="mr-2 btn-icon btn-icon-only btn btn-outline-alternate"><i
-                                        class="pe-7s-eyedropper btn-icon-wrapper"> </i></button>
-                                <button class="mr-2 btn-icon btn-icon-only btn btn-outline-alternate"><i
-                                        class="pe-7s-upload btn-icon-wrapper"> </i></button>
-                                <a href="/delete_team/{{i._id}}">
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i
-                                            class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                                </td>
+                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <div class="badge badge-warning">off</div>
+                                </td>
+                                <td class="text-center">
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-alternate"><i
+                                            class="pe-7s-eyedropper btn-icon-wrapper"> </i></button>
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-alternate"><i
+                                            class="pe-7s-upload btn-icon-wrapper"> </i></button>
+                                    <a href="/delete_team/{{i._id}}">
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i
+                                                class="pe-7s-trash btn-icon-wrapper"> </i></button>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-block text-center card-footer">
+                    <button class="mr-2 btn-icon btn-icon-only btn btn-danger"><i
+                            class="pe-7s-trash btn-icon-wrapper"></i><i>&nbsp Delete table </i></button>
+                    <button class="btn-wide btn btn-success" onclick="showSaveAll()"><i
+                            class="pe-7s-file btn-icon-wrapper"></i><i>&nbsp Save all
+                        </i></button>
+                </div>
             </div>
-            <div class="d-block text-center card-footer">
-                <button class="mr-2 btn-icon btn-icon-only btn btn-danger"><i
-                        class="pe-7s-trash btn-icon-wrapper"></i><i>&nbsp Delete table </i></button>
-                <button class="btn-wide btn btn-success"><i class="pe-7s-file btn-icon-wrapper"></i><i>&nbsp Save all
-                    </i></button>
-            </div>
-        </div>
 
         </div>
     </div>
 
     </div>
 </section>
+<script>
+    function showSaveAll() {
+        Swal.fire(
+            {
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Save',
+                denyButtonText: `Don't save`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire('Saved!', '', 'success')
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                }
+            }
+            )
+    }
+</script>
 {% endblock %}
 {% block foot %}
- <!-- Modal -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Team</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                <h5 class="modal-title" id="exampleModalLabel">Add Team</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-          <form action="" method="post">
-            <div class="modal-body">
-                <div class="form-group">
-                <label for="position">Choose Major Team: </label>
-                <select style="background-color: #ECEFF1;" class="form-control" name="job">
-                    <option>Technical</option>
-                    <option> Sales</option>
-                    <option>Bod</option>
-                    <option>Marketing</option>
-                    <option>Hr</option>
-                </select>
+            <form action="" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="position">Choose Major Team: </label>
+                        <select style="background-color: #ECEFF1;" class="form-control" name="job">
+                            <option>Technical</option>
+                            <option> Sales</option>
+                            <option>Bod</option>
+                            <option>Marketing</option>
+                            <option>Hr</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Name Team">Name Team:</label>
+                        <input type="text" class="form-control" name="name" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Number Team:</label>
+                        <input type="text" class="form-control" name="number_team" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Add Member:</label>
+                        <input type="number" class="form-control" placeholder="">
+                    </div>
                 </div>
-              <div class="form-group">
-                <label for="Name Team">Name Team:</label>
-                <input type="text" class="form-control" name="name"  placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="address">Number Team:</label>
-                <input type="text" class="form-control" name="number_team" placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="phone">Add Member:</label>
-                <input type="number" class="form-control"   placeholder="">
-              </div>
-            </div>  
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Confirm</button>
-            </div>
-        </form>
-          </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}
 {% block js %}{% endblock %}
